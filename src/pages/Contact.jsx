@@ -4,7 +4,7 @@ import FAQAccordion from "../components/FAQAccordion";
 import Reveal from "../components/Reveal";
 
 // TODO: replace with the business's real public WhatsApp number (with country code, no + or spaces)
-const BUSINESS_WHATSAPP = "2348000000000";
+const BUSINESS_WHATSAPP = "2348032503216";
 
 const SERVICE_OPTIONS = ["Photography", "Videography", "Livestream", "Drone service", "Not sure yet"];
 
