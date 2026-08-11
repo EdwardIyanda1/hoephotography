@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Design system v3 — client asked to move toward gazmadustudios.com:
+   warm, editorial, elegant serif + humanist sans, testimonial- and
+   trust-signal-heavy structure (press mentions, process, FAQ,
+   newsletter band) rather than the earlier dark/cinematic look.
+------------------------------------------------------------------ */
+
+@theme {
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ivory: #f7f3ec;
+  --color-ivory-2: #fbf8f2;
+  --color-espresso: #241c16;
+  --color-espresso-2: #362a21;
+  --color-gold: #b08a4e;
+  --color-gold-soft: #d4b980;
+  --color-rose: #a45c4b;
+  --color-text-dark: #241c16;
+  --color-text-light: #f7f3ec;
+  --color-line: rgba(36, 28, 22, 0.12);
+  --color-line-light: rgba(247, 243, 236, 0.16);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-text-dark);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.font-accent-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+}
