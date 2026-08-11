@@ -5,6 +5,7 @@ const LINKS = [
   { to: "/services", label: "Services" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/about", label: "About" },
+  { to: "/other-business", label: "Other Business" },
 ];
 
 export default function Navbar() {
@@ -31,7 +32,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
         <NavLink to="/" className="flex items-baseline gap-2" onClick={() => setOpen(false)}>
           <span className="font-display text-xl text-espresso">Hoe</span>
-          <span className="eyebrow text-[10px] text-rose">Multimedia Concept</span>
+          <span className="eyebrow text-[10px] text-espresso">Multimedia Concept</span>
         </NavLink>
 
         <nav className="hidden md:flex items-center gap-8">

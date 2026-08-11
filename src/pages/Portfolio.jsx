@@ -15,9 +15,7 @@ export default function Portfolio() {
           Selected work
         </h1>
         <p className="mt-4 text-espresso/50 text-sm max-w-xl">
-          Photos shown are license-free stock placeholders standing in for
-          real shoots — the grid and filtering are fully wired up and ready
-          for real work once supplied.
+          Details Will be updated later
         </p>
 
         <div className="mt-10 flex flex-wrap gap-2">

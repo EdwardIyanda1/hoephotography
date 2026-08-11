@@ -25,15 +25,10 @@ export default function About() {
           </Reveal>
           <Reveal delay={0.1} className="space-y-5 text-espresso/70 leading-relaxed mt-6">
             <p>
-              Hoe Multimedia Concept is a media production outfit based in
-              Ibadan, covering photography, videography, livestream and drone
-              services for weddings, corporate events, real estate and
-              personal brands.
+              Details Will be Updated
             </p>
             <p>
-              We handle everything from planning the shoot to the final edit,
-              so every client gets one point of contact from first call to
-              delivered files.
+               Details Will be Updated
             </p>
             <p className="text-sm text-espresso/40 eyebrow">
               [ TODO: replace with real founder bio / years of experience / equipment list ]
