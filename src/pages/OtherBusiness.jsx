@@ -71,7 +71,7 @@ export default function OtherBusiness() {
       {/* Hero */}
       <section className="relative min-h-[80vh] flex items-end overflow-hidden">
         <img
-          src="https://picsum.photos/seed/other-biz-hero/1800/1400"
+          src="https://hoephotography.vercel.app/1001.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
