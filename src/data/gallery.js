@@ -13,6 +13,7 @@ export const CATEGORIES = ["All", "Photo", "Video", "Live", "Drone"];
 
 export const GALLERY = [
   { label: "Wedding Photography", tag: "PHOTO", category: "Photo", image: "https://picsum.photos/seed/hoe-wedding/900/1125", from: "#d9c4a0", to: "#8a6a4a" },
+  { label: "Wedding Film", tag: "VIDEO", category: "Video", image: "https://picsum.photos/seed/hoe-wedding-film/900/1125", from: "#e3cfa8", to: "#5a4534" },
   { label: "Corporate Coverage", tag: "VIDEO", category: "Video", image: "https://picsum.photos/seed/hoe-corporate/900/1125", from: "#c9a887", to: "#5a4534" },
   { label: "Real Estate Aerials", tag: "DRONE", category: "Drone", image: "https://picsum.photos/seed/hoe-realestate/900/1125", from: "#a45c4b", to: "#3d2a22" },
   { label: "Church & Event Live", tag: "LIVE", category: "Live", image: "https://picsum.photos/seed/hoe-church/900/1125", from: "#e3cfa8", to: "#6b5138" },

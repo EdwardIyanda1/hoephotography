@@ -7,6 +7,7 @@ const SERVICES = [
   { title: "Documentary", desc: "Feel every moment of your wedding or event through honest storytelling.", Icon: VideoIcon, link: "/services" },
   { title: "Livestream", desc: "Multi-camera streaming so nobody misses the moment.", Icon: LiveIcon, link: "/services" },
   { title: "Drone Coverage", desc: "Aerial photography and video for events, real estate and landscapes.", Icon: DroneIcon, link: "/services" },
+  { title: "Weeding Coverage", desc: "Aerial photography and video for events, real estate and landscapes.", Icon: DroneIcon, link: "/services" },
 ];
 
 // Teaser used on the homepage — mirrors Gazmadu's "Signature Services" cards.

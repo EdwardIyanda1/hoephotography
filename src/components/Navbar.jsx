@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const LINKS = [
+  { to: "/wedding", label: "Weddings" },
   { to: "/services", label: "Services" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/about", label: "About" },
-  { to: "/other-business", label: "Other Business" },
 ];
 
 export default function Navbar() {
