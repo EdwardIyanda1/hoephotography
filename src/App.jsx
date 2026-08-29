@@ -15,6 +15,10 @@ export default function App() {
       {/* Hoe Multimedia Concept — shares the branded nav/footer */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/Documentry" element={<Home />} />
+        <Route path="/Livestream" element={<Home />} />
+        <Route path="/Portriats" element={<Home />} />
+        <Route path="/Drone" element={<Home />} />
         <Route path="/wedding" element={<Wedding />} />
         <Route path="/services" element={<Services />} />
         <Route path="/portfolio" element={<Portfolio />} />
