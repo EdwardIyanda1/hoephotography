@@ -42,7 +42,7 @@ export default function Wedding() {
     <div className="bg-ivory">
       <section className="relative min-h-[85vh] flex items-end overflow-hidden">
         <img
-          src="https://picsum.photos/seed/hoe-wedding-hero/1800/1400"
+          src="../Img/HOE_-572.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />

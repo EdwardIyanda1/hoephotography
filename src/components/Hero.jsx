@@ -10,7 +10,7 @@ export default function Hero() {
           photography is supplied. */}
       <div className="absolute inset-0">
         <img
-          src="https://picsum.photos/seed/hoe-hero/1800/1200"
+          src="./src/Img/HOE (50).jpg"
           alt=""
           className="w-full h-full object-cover"
         />
