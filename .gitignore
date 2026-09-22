@@ -27,3 +27,4 @@ src/img
 extract_image_filenames.bat
 .env
 .env.example
+.private/config.json
