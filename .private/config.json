@@ -1,0 +1,9 @@
+{
+  "APP_URL": "http://localhost:5173",
+  "PORT": 3001,
+  "STUDIO_EMAILS": "edwardiyanda60@gmail.com",
+  "GMAIL_USER": "edwardiyanda60@gmail.com",
+  "GMAIL_APP_PASSWORD": "tqcu bleb oyhu shfhh",
+  "AUTH_SECRET": "34eaf6aa749749299be9c065493034a8c8a567ee82b19eb0b0d1ea7c9de319fa",
+  "MAX_UPLOAD_BYTES": 52428800
+}

@@ -1,3 +1,4 @@
+import PublicImage from "../components/PublicImage";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Reveal from "../components/Reveal";
@@ -148,7 +149,7 @@ export default function OtherBusiness() {
           {["other-biz-properties", "other-biz-farm", "other-biz-construction"].map((seed, i) => (
             <Reveal key={seed} delay={i * 0.06}>
               <figure className="relative aspect-square overflow-hidden">
-                <img src={`https://picsum.photos/seed/${seed}/600/600`} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <PublicImage category="Other business" index={i} alt="" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(27,36,48,0.55) 0%, transparent 50%)" }} />
                 <figcaption className="absolute bottom-3 left-3">
                   <GlassChip>{PILLARS[i].name}</GlassChip>
@@ -158,7 +159,7 @@ export default function OtherBusiness() {
           ))}
         </div>
         <p className="mt-4 text-[11px] text-[#1B2430]/40">
-          Placeholder photos shown (license-free stock) — swap for real project photos once supplied.
+          
         </p>
       </section>
 

@@ -1,3 +1,8 @@
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Project from "./pages/Project";
+import StudioSettings from "./pages/StudioSettings";
+import Legal from "./pages/Legal";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -15,6 +20,14 @@ export default function App() {
       {/* Hoe Multimedia Concept — shares the branded nav/footer */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/studio" element={<Dashboard studio />} />
+        <Route path="/studio/settings" element={<StudioSettings />} />
+        <Route path="/projects/:id" element={<Project />} />
+        <Route path="/privacy" element={<Legal privacy />} />
+        <Route path="/terms" element={<Legal />} />
         <Route path="/Documentry" element={<Home />} />
         <Route path="/Livestream" element={<Home />} />
         <Route path="/Portriats" element={<Home />} />

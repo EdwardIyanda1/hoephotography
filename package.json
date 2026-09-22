@@ -7,15 +7,30 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:api": "node --watch server/dev.js",
+    "start": "node server/dev.js",
+    "db:migrate": "node server/migrate.js",
+    "test": "node --test server/*.test.js",
+    "storage:setup": "node server/setup-storage.js",
+    "db:cleanup": "node server/cleanup.js",
+    "setup": "node server/setup.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
     "@tailwindcss/vite": "^4.3.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.2",
+    "express": "^5.2.1",
     "framer-motion": "^12.43.0",
+    "helmet": "^8.3.0",
+    "nodemailer": "^10.0.10",
+    "pg": "^8.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.2",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

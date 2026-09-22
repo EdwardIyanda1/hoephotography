@@ -1,3 +1,4 @@
+import PublicImage from "../components/PublicImage";
 import Reveal from "../components/Reveal";
 import CornerAccent from "../components/CornerAccent";
 
@@ -6,10 +7,8 @@ export default function About() {
     <div className="bg-ivory">
       <section className="pt-40 pb-20 max-w-6xl mx-auto px-6 grid md:grid-cols-[1fr_1.2fr] gap-12 items-center">
         <Reveal className="order-2 md:order-1 relative aspect-[4/5] overflow-hidden">
-          {/* Placeholder team/studio photo — Lorem Picsum stock, not a real
-              photo of Hoe Multimedia Concept. Swap once supplied. */}
-          <img
-            src="https://picsum.photos/seed/hoe-about/900/1125"
+          
+          <PublicImage
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -25,14 +24,12 @@ export default function About() {
           </Reveal>
           <Reveal delay={0.1} className="space-y-5 text-espresso/70 leading-relaxed mt-6">
             <p>
-              Details Will be Updated
+              Photography, video and event coverage from Hoe Multimedia Concept.
             </p>
             <p>
-               Details Will be Updated
+               Contact the studio to discuss your shoot, requirements and delivery date.
             </p>
-            <p className="text-sm text-espresso/40 eyebrow">
-              [ TODO: replace with real founder bio / years of experience / equipment list ]
-            </p>
+            
           </Reveal>
         </div>
       </section>

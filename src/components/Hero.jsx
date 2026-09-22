@@ -1,19 +1,19 @@
+import { useApi } from "../lib/api";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import CornerAccent from "./CornerAccent";
 
 export default function Hero() {
+  const { data } = useApi("/public/media");
+  const cover = data?.find(m => m.mime.startsWith("image/"));
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-espresso">
-      {/* Placeholder mood photo (Lorem Picsum — license-free stock, not a
-          real Hoe Multimedia Concept shoot) standing in until real
-          photography is supplied. */}
       <div className="absolute inset-0">
-        <img
-          src="./src/Img/HOE (50).jpg"
+        {cover && <img
+          src={cover.url}
           alt=""
           className="w-full h-full object-cover"
-        />
+        />}
         <div
           className="absolute inset-0"
           style={{
@@ -36,9 +36,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
           className="font-display text-5xl sm:text-6xl md:text-7xl text-ivory leading-tight max-w-3xl mx-auto"
         >
-          Every moment,
+          Photography & film,
           <br />
-          <span className="font-accent-italic">amplified.</span>
+          <span className="font-accent-italic">made for you.</span>
         </motion.h1>
 
         <motion.p

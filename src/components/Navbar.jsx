@@ -1,7 +1,9 @@
+import { useApi } from "../lib/api";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const LINKS = [
+  { to: "/dashboard", label: "My projects" },
   { to: "/wedding", label: "Weddings" },
   { to: "/services", label: "Services" },
   { to: "/portfolio", label: "Portfolio" },
@@ -9,6 +11,7 @@ const LINKS = [
 ];
 
 export default function Navbar() {
+  const { data: settings } = useApi("/public/settings");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -31,7 +34,7 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
         <NavLink to="/" className="flex items-baseline gap-2" onClick={() => setOpen(false)}>
-          <span className="font-display text-xl text-espresso">Hoe</span>
+          {settings?.logo_url ? <img src={settings.logo_url} alt="Hoe Multimedia Concept studio logo" className="studio-logo" /> : <span className="font-display text-xl text-espresso">Hoe</span>}
           <span className="eyebrow text-[10px] text-espresso">Multimedia Concept</span>
         </NavLink>
 

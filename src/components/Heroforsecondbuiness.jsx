@@ -1,3 +1,4 @@
+import PublicImage from "./PublicImage";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import CornerAccent from "./CornerAccent";
@@ -5,12 +6,9 @@ import CornerAccent from "./CornerAccent";
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-espresso">
-      {/* Placeholder mood photo (Lorem Picsum — license-free stock, not a
-          real Hoe Multimedia Concept shoot) standing in until real
-          photography is supplied. */}
+      
       <div className="absolute inset-0">
-        <img
-          src="https://picsum.photos/seed/hoe-hero/1800/1200"
+        <PublicImage
           alt=""
           className="w-full h-full object-cover"
         />

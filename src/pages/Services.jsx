@@ -1,3 +1,4 @@
+import Packages from "../components/Packages";
 import { Link } from "react-router-dom";
 import { CameraIcon, VideoIcon, LiveIcon, DroneIcon } from "../components/Icons";
 import Reveal from "../components/Reveal";
@@ -72,6 +73,7 @@ export default function Services() {
         ))}
       </div>
 
+      <section className="max-w-6xl mx-auto px-6 py-16"><h2 className="font-display text-4xl mb-8">Packages & pricing</h2><Packages /></section>
       <section className="py-20 border-t border-line text-center">
         <Reveal>
           <h2 className="font-display text-3xl md:text-4xl text-espresso">

@@ -63,7 +63,7 @@ export default function Footer() {
       <p className="text-center text-[11px] text-ivory/30 pb-8">
         © {new Date().getFullYear()} Hoe Multimedia Concept. All rights reserved.
       </p>
-    </footer>
+    <div className="max-w-6xl mx-auto px-6 py-6 flex gap-6 text-sm"><a href="/privacy">Privacy policy</a><a href="/terms">Terms & conditions</a><a href="/login">Client sign-in</a></div></footer>
   );
 }
 
