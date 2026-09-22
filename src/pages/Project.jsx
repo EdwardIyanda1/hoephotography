@@ -8,6 +8,7 @@ import Sharing, { AccessBadge } from "../components/ProjectSharing";
 import PhotoEditor from "../components/PhotoEditor";
 import { ProjectForm } from "./Dashboard";
 import "./Project.css";
+import ProjectImage from "../components/ProjectImage";
 const size = (n) =>
   Number(n) >= 1048576
     ? `${(Number(n) / 1048576).toFixed(1)} MB`
@@ -40,7 +41,7 @@ function FileDetails({ file: m, perm, run, base, busy, onPreview }) {
     <>
       <div className="d-detail-art">
         {m.mime.startsWith("image/") ? (
-          <img src={m.url} alt={m.caption || m.name} />
+          <ProjectImage src={m.url} alt={m.caption || m.name} />
         ) : (
           <Icon name="video" size={55} />
         )}
@@ -145,6 +146,7 @@ export default function Project() {
     base = `/projects/${id}`,
     state = useApi(base),
     me = useApi("/me");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [view, setView] = useState("grid"),
     [filter, setFilter] = useState("all"),
     [search, setSearch] = useState(""),
@@ -267,9 +269,14 @@ export default function Project() {
       };
     });
   return (
-    <main className="drive-page">
-      <aside className="d-sidebar">
-        <Link className="d-back" to={me.data.studio ? "/studio" : "/dashboard"}>
+    <main className="drive-page m-0! mx-auto! w-full! max-w-none! flex-col! gap-3! p-3! lg:h-dvh! lg:min-h-0! lg:flex-row! lg:gap-6! lg:overflow-hidden! lg:p-5!">
+      <div className="flex items-center justify-between gap-3 lg:hidden">
+        <Link className="flex min-h-11 items-center gap-2 text-sm" to={me.data.studio ? "/studio" : "/dashboard"}><Icon name="back" size={18} />All projects</Link>
+        <button type="button" className="d-secondary min-h-11!" aria-controls="project-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}><Icon name={menuOpen ? "close" : "list"} size={18} />{menuOpen ? "Close menu" : "Project menu"}</button>
+      </div>
+      <aside id="project-navigation" aria-label="Project navigation" className={`d-sidebar w-full! shrink-0! rounded-lg bg-ivory lg:flex! lg:h-full! lg:w-60! lg:overflow-y-auto! lg:overscroll-contain! ${menuOpen ? "flex!" : "hidden!"}`}>
+
+        <Link className="d-back hidden! lg:flex!" to={me.data.studio ? "/studio" : "/dashboard"}>
           <Icon name="back" />
           All projects
         </Link>
@@ -286,7 +293,7 @@ export default function Project() {
           <button
             className="d-primary d-upload"
             disabled={busy}
-            onClick={() => setDialog("upload")}
+            onClick={() => { setMenuOpen(false); setDialog("upload"); }}
           >
             <Icon name="plus" />
             Upload files
@@ -312,6 +319,7 @@ export default function Project() {
               onClick={() => {
                 setFilter(key);
                 setSelected(null);
+                setMenuOpen(false);
               }}
             >
               <Icon name={icon} />
@@ -319,18 +327,18 @@ export default function Project() {
               <small>{count}</small>
             </button>
           ))}
-          <button onClick={() => setDialog("share")}>
+          <button onClick={() => { setMenuOpen(false); setDialog("share"); }}>
             <Icon name="users" />
             <span>Sharing & access</span>
           </button>
           {perm.audit && (
-            <button onClick={() => setDialog("activity")}>
+            <button onClick={() => { setMenuOpen(false); setDialog("activity"); }}>
               <Icon name="clock" />
               <span>Activity</span>
             </button>
           )}
         </nav>
-        <div className="d-sidebar-bottom">
+        <div className="d-sidebar-bottom hidden! lg:block!">
           <Icon name="lock" />
           <strong>Private by default</strong>
           <p>You choose who can access your project.</p>
@@ -340,7 +348,7 @@ export default function Project() {
           </span>
         </div>
       </aside>
-      <section className="d-workspace">
+      <section aria-label="Project workspace" tabIndex={0} className="d-workspace min-w-0! w-full! lg:h-full! lg:min-h-0! lg:overflow-y-auto! lg:overscroll-contain!">
         <div className="d-topbar">
           <label className="d-search">
             <Icon name="search" />
@@ -360,7 +368,7 @@ export default function Project() {
             className="d-avatar d-self"
             title={me.data.email}
             aria-label="Your project access"
-            onClick={() => setDialog("share")}
+            onClick={() => { setMenuOpen(false); setDialog("share"); }}
           >
             {me.data.email[0].toUpperCase()}
           </button>
@@ -390,7 +398,7 @@ export default function Project() {
               <span>Restricted access</span>
             </div>
           </div>
-          <button className="d-primary" onClick={() => setDialog("share")}>
+          <button className="d-primary" onClick={() => { setMenuOpen(false); setDialog("share"); }}>
             <Icon name="users" size={18} />
             Share
           </button>
@@ -520,7 +528,7 @@ export default function Project() {
                     {perm.upload && !search && (
                       <button
                         className="d-secondary"
-                        onClick={() => setDialog("upload")}
+                        onClick={() => { setMenuOpen(false); setDialog("upload"); }}
                       >
                         Upload files
                       </button>
@@ -545,7 +553,7 @@ export default function Project() {
                         >
                           <div className="d-card-preview">
                             {m.mime.startsWith("image/") ? (
-                              <img
+                              <ProjectImage
                                 loading="lazy"
                                 src={m.url}
                                 alt={m.caption || m.name}
@@ -719,7 +727,7 @@ export default function Project() {
                         <AccessBadge status={p.access.approval} />
                         <button
                           className="d-text-button"
-                          onClick={() => setDialog("share")}
+                          onClick={() => { setMenuOpen(false); setDialog("share"); }}
                         >
                           Manage sharing <Icon name="chevron" size={14} />
                         </button>
@@ -896,7 +904,7 @@ export default function Project() {
         <Dialog title={previewFile.name} wide onClose={() => setPreview(null)}>
           <div className="d-full-preview">
             {previewFile.mime.startsWith("image/") ? (
-              <img
+              <ProjectImage
                 src={previewFile.url}
                 alt={previewFile.caption || previewFile.name}
               />

@@ -112,6 +112,8 @@ export function createStorage(root) {
           path,
           {
             cacheControl: false,
+            // Only validated project/media UUID paths reach this method.
+            dotfiles: "allow",
             acceptRanges: true,
           },
           (error) => {

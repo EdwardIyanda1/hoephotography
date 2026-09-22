@@ -33,7 +33,7 @@ test("private project lifecycle, verified recipients, publication consent and de
         throw Error("Provider unavailable");
       sent.push({ to, subject, text });
     },
-    files: createStorage(directory),
+    files: createStorage(join(directory, ".private", "uploads")),
   });
   const studio = request.agent(app),
     owner = request.agent(app),

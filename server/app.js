@@ -391,6 +391,7 @@ export function createApp({
   });
   app.post("/api/projects/:id/uploads", auth, async (req, res) => {
     const p = await project(req,"upload");
+    await rate(`upload:${req.user.email}`, 100);
     const m = z
       .object({
         name: text.refine(v=>!/[\\/:]/.test(v)&&![...v].some(c=>c.charCodeAt(0)<32||c.charCodeAt(0)===127),"Invalid filename"),

@@ -1,3 +1,4 @@
+import CreateProject from "./pages/CreateProject";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Project from "./pages/Project";
@@ -17,6 +18,7 @@ import OtherBusiness from "./pages/OtherBusiness";
 export default function App() {
   return (
     <Routes>
+      <Route path="/projects/:id" element={<Project />} />
       {/* Hoe Multimedia Concept — shares the branded nav/footer */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
@@ -24,8 +26,8 @@ export default function App() {
         <Route path="/register" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/studio" element={<Dashboard studio />} />
+        <Route path="/studio/projects/new" element={<CreateProject />} />
         <Route path="/studio/settings" element={<StudioSettings />} />
-        
         <Route path="/privacy" element={<Legal privacy />} />
         <Route path="/terms" element={<Legal />} />
         <Route path="/Documentry" element={<Home />} />
@@ -42,7 +44,6 @@ export default function App() {
       {/* A different business entirely — self-contained page, its own
           nav/footer, no Hoe Multimedia branding. */}
       <Route path="/other-business" element={<OtherBusiness />} />
-        <Route path="/projects/:id" element={<Project />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>
