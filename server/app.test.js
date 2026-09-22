@@ -83,7 +83,16 @@ test("private project lifecycle, verified recipients, publication consent and de
     "second@example.com",
   ]);
   await login(second, "second@example.com");
-  await second.get(base).expect(200);
+  const pending=(await second.get(base).expect(200)).body;
+  assert.equal(pending.access.approval,'pending');
+  assert.equal(pending.access.permissions.files,false);
+  assert.equal(pending.price,undefined);
+  await second.get(`${base}/media/12345678-1234-4234-8234-123456789abc/file`).expect(403);
+  await second.patch(`${base}/access`).set('Origin',origin).send({email:'second@example.com',approval:'approved'}).expect(403);
+  await studio.patch(`${base}/access`).set('Origin',origin).send({email:'second@example.com',approval:'approved'}).expect(200);
+  assert.equal((await second.get(base)).body.access.permissions.files,true);
+  await owner.put(`${base}/members`).set('Origin',origin).send({emails:['owner@example.com','OWNER@example.com']}).expect(400);
+
   await second
     .put(`${base}/privacy`)
     .set("Origin", origin)
@@ -114,19 +123,19 @@ test("private project lifecycle, verified recipients, publication consent and de
     .put(upload.uploadUrl)
     .set("Origin", origin)
     .set("Content-Type", "image/jpeg")
-    .send(Buffer.alloc(200))
+    .send(Buffer.concat([Buffer.from([255,216,255]),Buffer.alloc(197)]))
     .expect(403);
   await studio
     .put(upload.uploadUrl)
     .set("Origin", origin)
     .set("Content-Type", "image/jpeg")
-    .send(Buffer.alloc(200))
+    .send(Buffer.concat([Buffer.from([255,216,255]),Buffer.alloc(197)]))
     .expect(200);
   await studio
     .put(upload.uploadUrl)
     .set("Origin", origin)
     .set("Content-Type", "image/jpeg")
-    .send(Buffer.alloc(200))
+    .send(Buffer.concat([Buffer.from([255,216,255]),Buffer.alloc(197)]))
     .expect(409);
   const partial = await owner
     .get(`${base}/media/${upload.id}/file`)
@@ -191,12 +200,31 @@ test("private project lifecycle, verified recipients, publication consent and de
     .set("Origin", origin)
     .send({ emails: ["owner@example.com", "third@example.com"] })
     .expect(200);
-  assert.deepEqual((await owner.get(base)).body.members, [
-    "owner@example.com",
-    "third@example.com",
-  ]);
-  await second.get(base).expect(404);
-  await second.get(`${base}/media/${upload.id}/file`).expect(404);
+  assert.equal((await owner.get(base)).body.member_access.find(m=>m.email==="second@example.com").approval,"revoked");
+  assert.equal((await second.get(base).expect(200)).body.media.length,0);
+  await second.get(`${base}/media/${upload.id}/file`).expect(403);
+  const editor=request.agent(app),manager=request.agent(app);
+  for(const [email,role] of [['editor@example.com','editor'],['manager@example.com','manager']]){
+    await studio.put(`${base}/staff`).set('Origin',origin).send({email,role}).expect(200);
+  }
+  await login(editor,'editor@example.com');await login(manager,'manager@example.com');
+  assert.equal((await editor.get(base)).body.price,undefined);
+  await editor.patch(`${base}/media/${upload.id}`).set('Origin',origin).send({caption:'Updated by editor'}).expect(200);
+  await editor.patch(`${base}/media/${upload.id}`).set('Origin',origin).send({caption:'Escalation',featured:false}).expect(403);
+  await editor.delete(`${base}/media/${upload.id}`).set('Origin',origin).expect(403);
+  await editor.patch(`${base}/access`).set('Origin',origin).send({email:'third@example.com',approval:'approved'}).expect(403);
+  await manager.patch(`${base}/access`).set('Origin',origin).send({email:'third@example.com',approval:'approved'}).expect(200);
+  await manager.patch(`${base}/access`).set('Origin',origin).send({email:'owner@example.com',approval:'revoked'}).expect(403);
+  await manager.put(`${base}/staff`).set('Origin',origin).send({email:'editor@example.com',role:'manager'}).expect(403);
+  await editor.get(`/api/projects/${p2.id}`).expect(404);
+  await editor.get(`${base}/audit`).expect(403);
+  assert.ok((await manager.get(`${base}/audit`).expect(200)).body.length);
+  await studio.patch(`${base}/access`).set('Origin',origin).send({email:'editor@example.com',approval:'revoked'}).expect(200);
+  await editor.get(`${base}/media/${upload.id}/file`).expect(403);
+  await db.exec(await readFile(new URL('./schema.sql',import.meta.url),'utf8'));
+  assert.equal((await editor.get(base)).body.access.approval,'revoked');
+  await post(manager,'/api/auth/logout-all').expect(200);
+  await manager.get('/api/me').expect(401);
   await post(owner, "/api/auth/logout").expect(200);
   await owner.get("/api/me").expect(401);
   await db.close();

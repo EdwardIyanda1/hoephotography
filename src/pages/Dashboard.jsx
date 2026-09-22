@@ -1,3 +1,5 @@
+import { AccessBadge } from "../components/ProjectSharing";
+import "./Project.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api, useApi, money } from "../lib/api";
@@ -141,7 +143,7 @@ export default function Dashboard({ studio = false }) {
           ? "Create projects, upload files, and deliver finished work."
           : "Your photos, films, project details and agreed prices, together in one place."}
       </p>
-      {studio && (
+      {studio && me.data.administrator && (
         <>
           <div className="portal-actions">
             <button className="primary" onClick={() => setCreate(!create)}>
@@ -176,7 +178,9 @@ export default function Dashboard({ studio = false }) {
               </span>
               <h2>{p.title}</h2>
               <p>{p.category}</p>
-              <strong>{money(p.price, p.currency)}</strong>
+              {p.access.permissions.price && <strong>{money(p.price, p.currency)}</strong>}
+              <small>{p.access.role}</small>
+              <AccessBadge status={p.access.approval} />
               <small>
                 {p.public_consent ? "Publication approved" : "Private project"}
               </small>

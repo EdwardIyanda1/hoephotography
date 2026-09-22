@@ -1,3 +1,4 @@
+import { matchesMedia } from "./file-signature.js";
 import nodemailer from "nodemailer";
 import { lookup } from "node:dns/promises";
 import { mkdir, stat, unlink, link } from "node:fs/promises";
@@ -21,7 +22,7 @@ export function createStorage(root) {
   };
 
   return {
-    async write(path, source, expected, max) {
+    async write(path, source, expected, max, mime) {
       const target = absolute(path);
       const temp = `${target}.${randomUUID()}.part`;
 
@@ -31,6 +32,7 @@ export function createStorage(root) {
       });
 
       let bytes = 0;
+      let header=Buffer.alloc(0);
 
       try {
         await pipeline(
@@ -38,6 +40,7 @@ export function createStorage(root) {
           new Transform({
             transform(chunk, encoding, callback) {
               bytes += chunk.length;
+              if(header.length<32)header=Buffer.concat([header,chunk.subarray(0,32-header.length)]);
 
               if (bytes > max || bytes > expected) {
                 callback(fail(413, "File exceeds upload size"));
@@ -57,6 +60,7 @@ export function createStorage(root) {
           throw fail(400, "File size does not match upload");
         }
 
+        if(mime&&!matchesMedia(header,mime))throw fail(400,"File content does not match the selected media type");
         // Create the final file without overwriting an existing file.
         await link(temp, target);
       } catch (error) {
@@ -128,6 +132,7 @@ export const storage = createStorage(config.STORAGE_DIR);
 export function createMailer(
   settings,
   makeTransport = nodemailer.createTransport,
+  resolveHost = lookup,
 ) {
   let transport;
 
@@ -143,7 +148,7 @@ export function createMailer(
 
     if (!transport) {
       // Use IPv4 because the current network cannot reach Gmail over IPv6.
-      const { address } = await lookup("smtp.gmail.com", {
+      const { address } = await resolveHost("smtp.gmail.com", {
         family: 4,
       });
 

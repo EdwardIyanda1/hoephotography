@@ -46,9 +46,10 @@ test("Gmail SMTP uses TLS and normalized app password without calling Google", a
         },
       };
     },
+    async () => ({address:"127.0.0.1"}),
   );
   await send("client@example.com", "Ready", "Open your project", "project-key");
-  assert.equal(options.host, "smtp.gmail.com");
+  assert.equal(options.host, "127.0.0.1");
   assert.equal(options.secure, true);
   assert.equal(options.port, 465);
   assert.equal(options.auth.pass, "abcdefghijklmnop");
@@ -61,4 +62,11 @@ test("Gmail SMTP uses TLS and normalized app password without calling Google", a
     })("a@example.com", "Test", "Test"),
     /16-character/,
   );
+});
+test('media signature rejects disguised content and cleans temporary data',async t=>{
+ const dir=await mkdtemp(join(tmpdir(),'hoe-signature-'));t.after(()=>rm(dir,{recursive:true,force:true}));
+ const files=createStorage(dir),path='12345678-1234-4234-8234-123456789abc/12345678-1234-4234-8234-123456789def';
+ const html=Buffer.from('<html>not an image</html>');
+ await assert.rejects(files.write(path,Readable.from([html]),html.length,100,'image/jpeg'),{status:400});
+ assert.deepEqual(await readdir(join(dir,path.split('/')[0])),[]);
 });

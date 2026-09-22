@@ -25,7 +25,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/studio" element={<Dashboard studio />} />
         <Route path="/studio/settings" element={<StudioSettings />} />
-        <Route path="/projects/:id" element={<Project />} />
+        
         <Route path="/privacy" element={<Legal privacy />} />
         <Route path="/terms" element={<Legal />} />
         <Route path="/Documentry" element={<Home />} />
@@ -42,6 +42,7 @@ export default function App() {
       {/* A different business entirely — self-contained page, its own
           nav/footer, no Hoe Multimedia branding. */}
       <Route path="/other-business" element={<OtherBusiness />} />
+        <Route path="/projects/:id" element={<Project />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

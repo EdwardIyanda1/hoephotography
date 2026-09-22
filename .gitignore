@@ -28,3 +28,6 @@ extract_image_filenames.bat
 .env
 .env.example
 .private/config.json
+server.zip
+src/pages.zip
+src/components.zip
