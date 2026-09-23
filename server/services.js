@@ -1,3 +1,4 @@
+import { createR2Storage } from "./r2-storage.js";
 import { matchesMedia } from "./file-signature.js";
 import nodemailer from "nodemailer";
 import { lookup } from "node:dns/promises";
@@ -129,7 +130,7 @@ export function createStorage(root) {
   };
 }
 
-export const storage = createStorage(config.STORAGE_DIR);
+export const storage = createR2Storage(config, createStorage(config.STORAGE_DIR));
 
 export function createMailer(
   settings,

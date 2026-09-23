@@ -87,16 +87,6 @@ export default function Dashboard({ studio = false }) {
         ? a.title.localeCompare(b.title)
         : new Date(b.created_at || 0) - new Date(a.created_at || 0),
     );
-  const tabs = [
-    ["all", "All projects", all.length],
-    ["ready", "Ready", all.filter((p) => p.status === "ready").length],
-    ["progress", "In progress", all.filter((p) => p.status !== "ready").length],
-    [
-      "pending",
-      "Pending access",
-      all.filter((p) => p.access?.approval === "pending").length,
-    ],
-  ];
   return (
     <main className={shell}>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-[#ded4c5] pb-5">

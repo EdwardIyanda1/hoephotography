@@ -411,7 +411,7 @@ export function createApp({
       })
       .parse(req.body);
     const id = randomUUID(),
-      path = `${p.id}/${id}`;
+      path = files.pathFor ? files.pathFor(`${p.id}/${id}`,m.mime) : `${p.id}/${id}`;
     await db(
       "INSERT INTO studio.media(id,project_id,path,name,mime,bytes) VALUES($1,$2,$3,$4,$5,$6)",
       [id, p.id, path, m.name, m.mime, m.bytes],

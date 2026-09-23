@@ -421,7 +421,7 @@ export default function Project() {
         )}
         {progress && (
           <div className="d-progress" role="status">
-            <span>Uploading {progress.name}</span>
+            <span>{progress.value === 100 ? "Processing and saving" : "Uploading"} {progress.name}</span>
             <strong>{progress.value}%</strong>
             <progress max="100" value={progress.value} />
           </div>
